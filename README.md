@@ -147,3 +147,63 @@ cdk destroy
 - SSL certificates are automatically managed by Caddy
 - The instance is accessible only via HTTPS (port 443) and HTTP (port 80, for Let's Encrypt challenges)
 - Consider restricting access further by modifying security groups if needed
+
+## Adding SMTP to BugSink and uptime-kuma
+
+### BugSink
+
+Follow the settings at [Bugsink settings](https://www.bugsink.com/docs/settings) in the Email section, including at least:
+
+- EMAIL_HOST
+- EMAIL_HOST_USER
+- EMAIL_HOST_PASSWORD
+
+To configure these, connect to the instance using AWS Session Manager, then
+
+```
+sudo su - ubuntu
+cd ~
+docker compose down
+vim docker-compose.yml
+```
+
+add the above environment variables in the Bugsink service,
+
+then save the file and
+
+```
+docker-compose up -d
+```
+
+### uptime-kuma
+
+You can configure SMTP while the server is running. Simply visit settings -> Notifications -> Setup Notification -> Notification type Email (SMTP) then fill out the form. You can test the connection to validate correct settings.
+
+## Cost Considerations
+
+Based on 2025 Pricing - Sydney region:
+
+**Monthly Operating Costs (USD):**
+
+- **EC2 t3.small instance**: $19.34 ($0.0264/hour × 24 × 30.5 days)
+- **EBS GP3 storage (80GB)**: $7.68 ($0.096 × 80GB)
+- **AWS Secrets Manager**: $0.80 (2 secrets × $0.40 each)
+- **Elastic IP**: Free (when associated with running instance)
+
+**Total Monthly Cost: $27.82 USD (~$42.56 AUD)**
+
+**Annual Cost: $333.84 USD (~$510.78 AUD)**
+
+**Cost Optimization Options:**
+
+- Use **t3.micro** (2GB RAM) for lighter workloads: saves ~$10/month
+- Reduce EBS storage from 80GB to 40GB: saves ~$3.84/month
+- Use **Reserved Instances** (1-year term): saves ~30-40% on EC2 costs
+
+**Cost Breakdown:**
+
+- EC2 compute: 70% of total cost
+- Storage: 28% of total cost
+- Secrets management: 2% of total cost
+
+This represents a cost-effective solution for organizations needing both error tracking and uptime monitoring, with predictable monthly expenses and multiple optimization paths available.
