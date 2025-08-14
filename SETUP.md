@@ -6,7 +6,7 @@ This tutorial will guide you through deploying your own monitoring solution on A
 
 This monitoring stack includes two open-source tools:
 
-- **Bugsink**: An error tracking and monitoring application that helps you capture, analyze, and resolve errors in your applications. It provides detailed error reports and stack trackes.
+- **Bugsink**: An error tracking and monitoring application that helps you capture, analyze, and resolve errors in your applications. It provides detailed error reports and stack traces.
 - **Uptime Kuma**: A popular uptime monitoring tool that allows you to monitor the availability of your websites, services, and APIs, and sends you notifications when something goes down.
 
 ### What We'll Be Doing
@@ -24,16 +24,24 @@ Before you begin, make sure you have the following set up:
 - An AWS account
 - A registered domain name with a Hosted Zone in Amazon Route 53
 - AWS CLI configured with credentials that have `IAMPowerUserAccess` permissions
-- Node.js (v18 or later) and npm installed. You can use Node Version Manager (nvm) to manage your Node.js versions
+- Node.js (v18 or later) installed globally. You can use Node Version Manager (nvm) to manage your Node.js versions
 - AWS CDK CLI installed, either globally with: `npm install -g aws-cdk`, or in this project which can be used as: `npx cdk`
 
 ### 2. Project Setup and Configuration
 
-First, you'll need to clone the repository and install the necessary dependencies.
+After cloning this repository, to ensure you are using a compatible version of Node.js, you can use `nvm`:
+
+```bash
+nvm use 20
+```
+
+If you don't have this version of Node.js installed, `nvm` will prompt you to install it. Next, install the project's dependencies:
 
 ```bash
 npm install
 ```
+
+This will install the AWS CDK and all other required packages for the project.
 
 Next, create your environment configuration file by copying the provided template:
 
@@ -59,23 +67,8 @@ CDK_BUGSINK_SUBDOMAIN=errors
 CDK_UPTIME_SUBDOMAIN=status
 ```
 
-### 3. Setting Up Your Local Environment
 
-To ensure you are using a compatible version of Node.js, you can use `nvm`:
-
-```bash
-nvm use 20
-```
-
-If you don't have this version of Node.js installed, `nvm` will prompt you to install it. Next, install the project's dependencies:
-
-```bash
-npm install
-```
-
-This will install the AWS CDK and all other required packages for the project.
-
-### 4. Deploying the Stack
+### 3. Deploying the Stack
 
 With the configuration in place, it's time to deploy the stack to your AWS account.
 
@@ -101,7 +94,7 @@ npx cdk deploy
 
 The CDK will ask for confirmation before it starts creating the resources. Type `y` and press Enter to approve the deployment.
 
-### 5. Accessing Your Monitoring Services
+### 4. Accessing Your Monitoring Services
 
 The deployment process will take a few minutes. You can monitor the progress in your terminal or in the AWS CloudFormation console.
 
@@ -133,7 +126,7 @@ You will be greeted with the Uptime Kuma setup screen. Here, you'll create your 
 1. Enter a username and password
 2. Click **Create**
 
-### 6. What's Running
+### 5. What's Running
 
 Your EC2 instance is now running several Docker containers:
 
@@ -144,7 +137,7 @@ Your EC2 instance is now running several Docker containers:
 
 All services start automatically when the instance boots, and SSL certificates are automatically obtained and renewed by Caddy.
 
-### 7. Monitoring Your Stack
+### 6. Monitoring Your Stack
 
 You can monitor the health of your services by:
 
@@ -152,7 +145,7 @@ You can monitor the health of your services by:
 - **Viewing logs**: Run `docker compose logs <service-name>` to view logs for specific services
 - **Installation logs**: Check `/home/ubuntu/user-data.log` for deployment logs
 
-### 8. Next Steps
+### 7. Next Steps
 
 Now that your monitoring stack is deployed:
 

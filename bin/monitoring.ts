@@ -9,13 +9,36 @@ dotenv.config();
 
 // Build zod schema for environment variables
 const envSchema = z.object({
-  CDK_STACK_NAME: z.string().min(1, "CDK_STACK_NAME is required"),
-  CDK_HOSTED_ZONE_ID: z.string().min(1, "CDK_HOSTED_ZONE_ID is required"),
+  CDK_STACK_NAME: z
+    .string()
+    .min(
+      1,
+      "Environment variable: 'CDK_STACK_NAME' is required. Check .env file."
+    ),
+  CDK_HOSTED_ZONE_ID: z
+    .string()
+    .min(
+      1,
+      "Environment variable: 'CDK_HOSTED_ZONE_ID' is required. Check .env file."
+    ),
   CDK_HOSTED_ZONE_DOMAIN_NAME: z
     .string()
-    .min(1, "CDK_HOSTED_ZONE_DOMAIN_NAME is required"),
-  CDK_BUGSINK_SUBDOMAIN: z.string().min(1, "CDK_BUGSINK_SUBDOMAIN is required"),
-  CDK_UPTIME_SUBDOMAIN: z.string().min(1, "CDK_UPTIME_SUBDOMAIN is required"),
+    .min(
+      1,
+      "Environment variable: 'CDK_HOSTED_ZONE_DOMAIN_NAME' is required. Check .env file."
+    ),
+  CDK_BUGSINK_SUBDOMAIN: z
+    .string()
+    .min(
+      1,
+      "Environment variable: 'CDK_BUGSINK_SUBDOMAIN' is required. Check .env file."
+    ),
+  CDK_UPTIME_SUBDOMAIN: z
+    .string()
+    .min(
+      1,
+      "Environment variable: 'CDK_UPTIME_SUBDOMAIN' is required. Check .env file."
+    ),
 });
 
 // Process the environment variables

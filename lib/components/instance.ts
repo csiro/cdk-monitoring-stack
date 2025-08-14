@@ -88,6 +88,8 @@ export class MonitoringInstance extends Construct {
     const userData = ec2.UserData.forLinux();
     userData.addCommands(
       // Redirect all output to log files for easy debugging
+      "set -eo pipefail",
+      "echo 'Error handling enabled: set -eo pipefail'",
       "exec > >(tee -a /home/ubuntu/user-data.log) 2>&1",
       "echo 'Starting user data script execution at $(date)'",
       "",

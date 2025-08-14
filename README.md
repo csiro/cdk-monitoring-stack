@@ -11,7 +11,9 @@ This CDK project deploys an open-source monitoring solution on AWS EC2 that incl
 - AWS CDK CLI installed (`npm install -g aws-cdk`)
 - A Route 53 hosted zone for your domain
 
-## Setup
+## Quickstart
+
+The below is a summary of more detailed setup instructions provided in [setup](./SETUP.md).
 
 1. **Clone the repository and install dependencies:**
 
